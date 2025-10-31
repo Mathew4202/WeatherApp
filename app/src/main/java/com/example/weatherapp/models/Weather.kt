@@ -1,21 +1,38 @@
 package com.example.weatherapp.models
 
-// Main wrapper model: current weather + forecast list
+// New: Location model from WeatherAPI "location"
+data class Location(
+    val name: String,
+    val region: String,
+    val country: String,
+    val tzId: String? = null,
+    val localtime: String? = null
+)
+
 data class Weather(
+    val location: Location,
     val current: Current,
     val forecast: List<Forecast>
 )
 
-// Model for the current weather screen
 data class Current(
     val image: Int,
     val condition: String,
     val temperature: Int,
     val precipitation: String,
-    val wind: String
+    val wind: String,
+
+    // ---- JSON fields from WeatherAPI "current" ----
+    val iconUrl: String? = null,
+    val tempC: Double? = null,
+    val feelsLikeC: Double? = null,
+    val windKph: Double? = null,
+    val windDir: String? = null,
+    val precipMm: Double? = null,
+    val humidityPct: Int? = null
 )
 
-// Model for the forecast screen
+// Forecast per day
 data class Forecast(
     val image: Int,
     val date: String,
@@ -24,7 +41,12 @@ data class Forecast(
     val low: Int,
     val precipitation: String,
     val wind: String,
-    val humidity: Int
+    val humidity: Int,
+
+    // ----JSON fields from "forecast.forecastday[].day" ----
+    val iconUrl: String? = null,
+    val precipAmountMm: Double? = null,
+    val precipProbability: Int? = null,
+    val precipType: String? = null,
+    val maxWindKph: Double? = null
 )
-
-
